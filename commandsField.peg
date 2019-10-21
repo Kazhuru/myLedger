@@ -1,0 +1,24 @@
+Grammar basicTransaction 
+    BasicTsc <- Header Postings
+    
+    Header <- Date space Id? "\n"
+    
+    Postings <- FullPosting (FullPosting / MediumPosting)*
+    FullPosting <- Account Amount "\n"
+    MediumPosting <- Account "\n"
+
+
+    Account <- Id (":" Id)*
+    Id <- (letra / (letra " "))+
+    Amount <- number+
+    
+    Year <- number number number number
+    Month <- number / "1" number
+    Day <- number / [1-2] number / "3" number
+    Date <- Year "/" Month "/" Day
+
+    sep <- (tab / space)+
+    space <- " "
+    tab <- "/t"
+    number  <- [0-9]
+    letra <- [a-zA-Z]
